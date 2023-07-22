@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Replace "test" with your own sandbox Business account app client ID -->
+    <script src="https://www.paypal.com/sdk/js?client-id=<%= clientId %>&currency=USD"></script>
+  </head>
+  <body> 
+    <div class="container">
+      <div class="row"><br /></div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <h3>Checkout</h3>
+          <hr/>
+        </div>
+      </div>
+
+      <section class="h-100 h-custom">
+        <div class="container py-5 h-100">
+          
+          <div class="row">
+            <div class="col-md-12">
+              <div id="alert-payment-success"></div>
+            </div>
+          </div>
+
+          <div class="row d-flex justify-content-center align-items-center h-100">
+            <div class="col">
+              <div class="card">
+                <div class="card-body p-4">
+      
+                  <div class="row">
+      
+                    <div class="col-lg-7">
+                    
+                      <div class="d-flex justify-content-between align-items-center mb-1">
+                        <h5 class="mb-1">Shipping</h5>
+                      </div>
+
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <p class="mb-0">Huzefa Ratlamwala <br/> 1 Main St, San Jose, CA 95131</p>
+                        
+                        <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                          class="img-fluid rounded-3" style="width: 45px;" alt="Avatar">
+                      </div>
+
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                          <p class="mb-0">Standard Shipping : Free</p>
+                        </div>
+                      </div>
+
+                      <div class="d-flex justify-content-between align-items-center mb-4">
+                        <div>
+                          <h5 class="mb-1">Shopping Cart</h5>
+                          <p class="mb-0">You have 1 item(s) in your cart</p>
+                        </div>
+                        <!-- <div>
+                          <p class="mb-0"><span class="text-muted">Sort by:</span> <a href="#!"
+                              class="text-body">price <i class="fas fa-angle-down mt-1"></i></a></p>
+                        </div> -->
+                      </div>
+      
+                      <div class="card mb-3">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-between">
+                            <div class="d-flex flex-row align-items-center">
+                              <div>
+                                <img
+                                  src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-shopping-carts/img1.webp"
+                                  class="img-fluid rounded-3" alt="Shopping item" style="width: 65px;">
+                              </div>
+                              <div class="ms-3">
+                                <h5>Iphone 11 Pro (Refurbished)</h5>
+                                <p class="small mb-0">256GB, Navy Blue</p>
+                              </div>
+                            </div>
+                            <div class="d-flex flex-row align-items-center">
+                              <div style="width: 50px;">
+                                <h5 class="fw-normal mb-0">1</h5>
+                              </div>
+                              <div style="width: 80px;">
+                                <h5 class="mb-0">$100</h5>
+                              </div>
+                              <a href="#!" style="color: #cecece;"><i class="fas fa-trash-alt"></i></a>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+      
+                    </div>
+
+                    <div class="col-lg-5">
+      
+                      <div class="card rounded-3">
+                        <div class="card-body">
+                          <div class="d-flex justify-content-between align-items-center mb-4">
+                            <h5 class="mb-0">Payment Details</h5>
+                            <!-- <img src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/avatar-6.webp"
+                              class="img-fluid rounded-3" style="width: 45px;" alt="Avatar"> -->
+                          </div>
+      
+                          <hr class="my-4">
+      
+                          <div class="d-flex justify-content-between">
+                            <p class="mb-2">Subtotal</p>
+                            <p class="mb-2">$100.00</p>
+                          </div>
+      
+                          <div class="d-flex justify-content-between">
+                            <p class="mb-2">Shipping Fee</p>
+                            <p class="mb-2">Free</p>
+                          </div>
+
+                          <div class="d-flex justify-content-between">
+                            <p class="mb-2">Tax</p>
+                            <p class="mb-2">$5.00</p>
+                          </div>
+      
+                          <div class="d-flex justify-content-between mb-4">
+                            <h6 class="mb-2">Total (Incl. taxes)</h6>
+                            <h6 class="mb-2">$105.00</h6>
+                          </div>
+      
+                          <!-- Set up a container element for the button -->
+                          <div id="paypal-button-container"></div>
+
+                          <script>
+                          paypal
+                            .Buttons({
+                              // Sets up the transaction when a payment button is clicked
+                              createOrder: function () {
+                                return fetch("/my-server/create-paypal-order", {
+                                  method: "post",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  // use the "body" param to optionally pass additional order information
+                                  // like product skus and quantities
+                                  body: JSON.stringify({
+                                    cart: [
+                                      {
+                                        sku: "786110",
+                                        quantity: "10",
+                                      },
+                                    ],
+                                  }),
+                                })
+                                  .then((response) => response.json())
+                                  .then((order) => order.id);
+                              },
+                              // Finalize the transaction after payer approval
+                              onApprove: function (data) {
+                                return fetch("/my-server/capture-paypal-order", {
+                                  method: "post",
+                                  headers: {
+                                    "Content-Type": "application/json",
+                                  },
+                                  body: JSON.stringify({
+                                    orderID: data.orderID,
+                                  }),
+                                })
+                                  .then((response) => response.json())
+                                  .then((orderData) => {
+
+                                    // Successful capture! For dev/demo purposes:
+                                    // console.log(
+                                    //   "Capture result",
+                                    //   orderData,
+                                    //   JSON.stringify(orderData, null, 2)
+                                    // );
+
+                                    const transaction = orderData.purchase_units[0].payments.captures[0];
+                                    
+                                    // When ready to go live, remove the alert and show a success message within this page. For example:
+                                    // var element = document.getElementById('paypal-button-container');
+                                    // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                                    // Or go to another URL:  actions.redirect('thank_you.html');
+
+                                    let element = document.getElementById('alert-payment-success');
+                                    element.innerHTML = `<div class="alert alert-success alert-dismissible" role="alert">
+                                      Thank you for your payment!<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                                    </div>`;
+
+                                    setTimeout(() => {
+                                      return window.location.href = `<%- baseURL %>/thankyou?transactionId=${transaction.id}`;
+                                    }, 5000);
+                                    
+                                  });
+                              },
+                            }).render("#paypal-button-container");
+                          </script>
+      
+                        </div>
+                      </div>
+      
+                    </div>
+      
+                  </div>
+      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </body>
+</html>
