@@ -19,9 +19,10 @@ app.get("/", async (req, res) => {
 });
 
 app.get("/thankyou", async (req, res) => {
+  const baseURL = process.env.BASE_URL;
   const transactionId = req.query.transactionId;
   console.log(`Txn ID - ${transactionId}`);
-  res.render("thankyou", { transactionId });
+  res.render("thankyou", { baseURL, transactionId });
 });
 
 app.post("/my-server/create-paypal-order", async (req, res) => {

@@ -7,16 +7,16 @@
 3. Update the value of below environment variables 
 
 ```bash
-#Base URL of the application for ex. http://localhost:4786 or https://example.com' 
+#Base URL of your application for ex. http://localhost:4786 or https://example.com' 
 BASE_URL = http://localhost:4786   
 
 #Your Paypal App Client ID
-CLIENT_ID = AY4AWvhs07S7fjZEC5J6hDFkg70z1YaJa-ikfTAdHC5JSc7owmqglS47bPONXApK1-bNIacVMrlFzdTk  
+CLIENT_ID = Test123
 
 #Your Paypal App Secret
-APP_SECRET = EAk5m34X5TGjnKMtjpvEgvomE_cfm1NlMDmbTCWQxB5vLk--HHhribXZPipMEgcDyZFTcxJEtomLP4Ia  
+APP_SECRET = Test123  
 
-#Paypal REST API URL Sandbox - https://api-m.sandbox.paypal.com or Live - https://api-m.paypal.com
+#Paypal REST API URL - Sandbox - https://api-m.sandbox.paypal.com or Live - https://api-m.paypal.com
 PAYPAL_API_URL = https://api-m.sandbox.paypal.com  
 ```
 
@@ -31,7 +31,7 @@ Seller Account - seller-user@mailinator.com / Test!234
 Buyer Account - buyer-user@mailinator.com / Test!234
 ```
 
-## Dummy Mobile No's.
+## Test Mobile No's.
 
 ```
 +15555633412
@@ -40,7 +40,7 @@ Buyer Account - buyer-user@mailinator.com / Test!234
 +15559694601
 ```
 
-## Dummy Addresses
+## Test Addresses
 
 ```
 4182 North Valley Lake Drive, Fayetteville AR 72703
